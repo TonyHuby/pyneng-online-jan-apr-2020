@@ -3,7 +3,7 @@
 Задание 22.1
 
 Создать функцию parse_command_output. Параметры функции:
-* template - имя файла, в котором находится шаблон TextFSM
+* template - имя файла, в котором находится шаблон TextFSM (templates/sh_ip_int_br.template)
 * command_output - вывод соответствующей команды show (строка)
 
 Функция должна возвращать список:
