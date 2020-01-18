@@ -1,11 +1,11 @@
 import yaml
 from pprint import pprint
 
-with open('info.yaml') as f:
+with open("info.yaml") as f:
     templates = yaml.load(f)
 
 pprint(templates)
-'''
+"""
 Example:
 $ python yaml_read.py
 [{'BS': 1550,
@@ -26,4 +26,4 @@ $ python yaml_read.py
   'name': 'Coventry',
   'to_id': 2,
   'to_name': 'Manchester'}]
-'''
+"""

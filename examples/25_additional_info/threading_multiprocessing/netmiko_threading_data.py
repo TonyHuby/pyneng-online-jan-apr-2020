@@ -7,17 +7,17 @@ from pprint import pprint
 from netmiko import ConnectHandler
 
 COMMAND = sys.argv[1]
-devices = yaml.load(open('devices.yaml'))
+devices = yaml.load(open("devices.yaml"))
 
 
 def connect_ssh(device_dict, command, queue):
     with ConnectHandler(**device_dict) as ssh:
         ssh.enable()
         result = ssh.send_command(command)
-        print('Connection to device {}'.format(device_dict['ip']))
+        print("Connection to device {}".format(device_dict["ip"]))
 
-        #Добавляем словарь в очередь
-        queue.put({device_dict['ip']: result})
+        # Добавляем словарь в очередь
+        queue.put({device_dict["ip"]: result})
 
 
 def conn_threads(function, devices, command):
@@ -41,4 +41,4 @@ def conn_threads(function, devices, command):
     return results
 
 
-pprint(conn_threads(connect_ssh, devices['routers'], COMMAND))
+pprint(conn_threads(connect_ssh, devices["routers"], COMMAND))

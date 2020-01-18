@@ -6,7 +6,7 @@ from pprint import pprint
 from netmiko import ConnectHandler
 
 COMMAND = sys.argv[1]
-devices = yaml.load(open('devices.yaml'))
+devices = yaml.load(open("devices.yaml"))
 
 
 def connect_ssh(device_dict, command, queue):
@@ -14,8 +14,8 @@ def connect_ssh(device_dict, command, queue):
         ssh.enable()
         result = ssh.send_command(command)
 
-        print('Connection to device {}'.format(device_dict['ip']))
-        queue.put({device_dict['ip']: result})
+        print("Connection to device {}".format(device_dict["ip"]))
+        queue.put({device_dict["ip"]: result})
 
 
 def conn_processes(function, devices, command):
@@ -23,8 +23,7 @@ def conn_processes(function, devices, command):
     queue = multiprocessing.Queue()
 
     for device in devices:
-        p = multiprocessing.Process(
-            target=function, args=(device, command, queue))
+        p = multiprocessing.Process(target=function, args=(device, command, queue))
         p.start()
         processes.append(p)
 
@@ -38,4 +37,4 @@ def conn_processes(function, devices, command):
     return results
 
 
-pprint(conn_processes(connect_ssh, devices['routers'], COMMAND))
+pprint(conn_processes(connect_ssh, devices["routers"], COMMAND))

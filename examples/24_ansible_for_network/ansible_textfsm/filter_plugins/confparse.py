@@ -22,7 +22,7 @@ def confparse_parent(config, parent, child):
 
     try:
         # Automatically handle if 'show run' from _command module
-        config = config['stdout_lines'][0]
+        config = config["stdout_lines"][0]
     except (KeyError, IndexError, TypeError):
         pass
 
@@ -43,7 +43,7 @@ def confparse_parent(config, parent, child):
 class FilterModule(object):
     def filters(self):
         return {
-            'confparse_parent': confparse_parent,
+            "confparse_parent": confparse_parent,
         }
 
 

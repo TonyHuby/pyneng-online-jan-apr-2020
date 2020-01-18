@@ -2,13 +2,13 @@ import sys
 import yaml
 from netmiko import ConnectHandler
 
-#COMMAND = sys.argv[1]
-devices = yaml.load(open('devices.yaml'))
+# COMMAND = sys.argv[1]
+devices = yaml.load(open("devices.yaml"))
 
 
 def connect_ssh(device_dict, commands):
 
-    print('Connection to device {}'.format(device_dict['ip']))
+    print("Connection to device {}".format(device_dict["ip"]))
 
     with ConnectHandler(**device_dict) as ssh:
         ssh.enable()
@@ -17,9 +17,7 @@ def connect_ssh(device_dict, commands):
         print(result)
 
 
-commands_to_send = [
-    'logg 10.1.12.3', 'ip access-li ext TESST2', 'permit ip any any'
-]
+commands_to_send = ["logg 10.1.12.3", "ip access-li ext TESST2", "permit ip any any"]
 
-for router in devices['routers']:
+for router in devices["routers"]:
     connect_ssh(router, commands_to_send)

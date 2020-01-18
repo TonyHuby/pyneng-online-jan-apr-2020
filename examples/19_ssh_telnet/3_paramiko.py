@@ -4,14 +4,14 @@ import sys
 import time
 
 command = sys.argv[1]
-user = input('Username: ')
+user = input("Username: ")
 password = getpass.getpass()
-enable_pass = getpass.getpass(prompt='Enter enable password: ')
+enable_pass = getpass.getpass(prompt="Enter enable password: ")
 
-devices_ip = ['192.168.100.1', '192.168.100.2', '192.168.100.3']
+devices_ip = ["192.168.100.1", "192.168.100.2", "192.168.100.3"]
 
 for ip in devices_ip:
-    print('Connection to device {}'.format(ip))
+    print("Connection to device {}".format(ip))
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
@@ -20,22 +20,23 @@ for ip in devices_ip:
         username=user,
         password=password,
         look_for_keys=False,
-        allow_agent=False)
+        allow_agent=False,
+    )
 
     with client.invoke_shell() as ssh:
-        ssh.send('enable\n')
-        ssh.send(enable_pass + '\n')
+        ssh.send("enable\n")
+        ssh.send(enable_pass + "\n")
         time.sleep(0.5)
 
-        ssh.send('terminal length 0\n')
+        ssh.send("terminal length 0\n")
         time.sleep(1)
-        ssh.recv(1000).decode('ascii')
+        ssh.recv(1000).decode("ascii")
 
-        ssh.send(command + '\n')
+        ssh.send(command + "\n")
         time.sleep(2)
-        result = ssh.recv(5000).decode('ascii')
+        result = ssh.recv(5000).decode("ascii")
         print(result)
-'''
+"""
 Example:
 $ python 3_paramiko.py
 Username: cisco
@@ -97,4 +98,4 @@ FastEthernet0/1.60     10.3.60.1       YES manual up                    up
 FastEthernet0/1.70     10.3.70.1       YES manual up                    up
 R3#
 
-'''
+"""

@@ -8,8 +8,6 @@ class ErrorInCommand(Exception):
 class MyNetmiko(CiscoIosSSH):
     def send_command(self, command, **kwargs):
         output = super().send_command(command, **kwargs)
-        if 'Invalid input' in output:
-            raise ErrorInCommand('Возникла ошибка')
+        if "Invalid input" in output:
+            raise ErrorInCommand("Возникла ошибка")
         return output
-
-
