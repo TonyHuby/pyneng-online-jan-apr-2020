@@ -54,7 +54,7 @@ def test_function_return_value(capsys, first_router_from_devices_yaml):
     test_commands = commands_with_errors + correct_commands
 
     return_value = task_19_2b.send_config_commands(
-        first_router_from_devices_yaml, test_commands, verbose=False
+        first_router_from_devices_yaml, test_commands, log=False
     )
 
     # проверяем возвращаемое значение
