@@ -81,7 +81,7 @@ def test_function_return_value(capsys, first_router_from_devices_yaml):
 )
 def test_function_stdout(error, command, capsys, first_router_from_devices_yaml):
     return_value = task_19_2b.send_config_commands(
-        first_router_from_devices_yaml, [command], verbose=False
+        first_router_from_devices_yaml, [command], log=False
     )
 
     # Проверяем вывод информации об ошибках в stdout
