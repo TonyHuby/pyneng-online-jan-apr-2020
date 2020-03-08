@@ -1,9 +1,10 @@
 import paramiko
-import getpass
 import time
+import socket
 
 
-def send_command(host, username, password, enable, command, wait_for_command=5):
+def send_command(host, username, password, enable, command,
+                 wait_for_command=5, prompt="#"):
     MAX_READ = 5000
     SHORT_PAUSE = 0.5
     client = paramiko.SSHClient()
@@ -16,14 +17,17 @@ def send_command(host, username, password, enable, command, wait_for_command=5):
         ssh.send('terminal length 0\n')
         time.sleep(SHORT_PAUSE)
         ssh.recv(MAX_READ)
-
         ssh.send(f"{command}\n")
         ssh.settimeout(wait_for_command)
         output = ""
         while True:
             try:
-                part = ssh.recv(50).decode("utf-8")
+                part = ssh.recv(100).decode("utf-8")
                 output += part
+                # print(part)
+                if prompt in output:
+                    # print("Found prompt!")
+                    break
             except socket.timeout:
                 break
         return output
@@ -31,4 +35,4 @@ def send_command(host, username, password, enable, command, wait_for_command=5):
 
 if __name__ == "__main__":
     print(send_command("192.168.100.1", "cisco", "cisco", "cisco",
-                       "ping 8.8.8.8 repeat 10 timeout 5", wait_for_command=4))
+                       "ping 8.8.8.8 repeat 10", prompt="R1#"))
