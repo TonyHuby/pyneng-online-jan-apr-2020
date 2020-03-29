@@ -22,10 +22,11 @@ class Network:
             raise StopIteration
 
 
-net1 = Network("10.1.1.192/30")
+if __name__ == "__main__":
+    net1 = Network("10.1.1.192/30")
 
-for ip in net1:
-    print(ip)
+    for ip in net1:
+        print(ip)
 
 """
 Вызываю __iter__

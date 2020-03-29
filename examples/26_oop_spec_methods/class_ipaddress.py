@@ -23,7 +23,13 @@ class IPAddress:
         result_ip = str(ipaddress.ip_address(ip_int + second))
         return IPAddress(f"{result_ip}/{self.mask}")
 
+    def __radd__(self, number):
+        return self + number
+
 
 if __name__ == "__main__":
     ip1 = IPAddress("10.1.1.1/25")
     print(ip1 + 5)
+    print(5 + ip1)
+    print(ip1.__radd__(5))
+
